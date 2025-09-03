@@ -56,6 +56,9 @@
 
       if (Math.abs((length * width) - 36) <= 0.001) {
         message.textContent = 'Success! The 36 tiles can create a hot tub!';
+        if(if (length % 1 !== 0 || width % 1 !== 0)) {
+          message.textContent += " BUT...you have partial (cut) tiles. Are you <b>sure</b> that's okay?";
+        }
         drawHotTub(length, width);
       } else {
         message.textContent = 'Invalid dimensions. Try again.';
