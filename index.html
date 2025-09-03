@@ -42,8 +42,8 @@
 
   <script>
     function checkDimensions() {
-      const length = parseInt(document.getElementById('length').value);
-      const width = parseInt(document.getElementById('width').value);
+      const length = parseFloat(document.getElementById('length').value);
+      const width = parseFloat(document.getElementById('width').value);
       const message = document.getElementById('message');
       const container = document.getElementById('hotTubContainer');
       container.innerHTML = '';
@@ -54,7 +54,7 @@
         return;
       }
 
-      if (length * width === 36) {
+      if (Math.abs((length * width) - 36) <= 0.001) {
         message.textContent = 'Success! The 36 tiles can create a hot tub!';
         drawHotTub(length, width);
       } else {
