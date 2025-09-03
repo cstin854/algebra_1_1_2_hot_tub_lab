@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hot Tub Tile Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    #hotTubContainer {
+      margin: 20px auto;
+      position: relative;
+      border: 2px solid black;
+      display: none;
+    }
+    .label {
+      position: absolute;
+      font-weight: bold;
+      background: rgba(255,255,255,0.7);
+      padding: 2px 5px;
+    }
+    #resetButton, #tryAgainButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hot Tub Tile Simulation</h1>
+  <p>Enter length and width (in tiles):</p>
+  <input type="number" id="length" placeholder="Length"> x 
+  <input type="number" id="width" placeholder="Width">
+  <button onclick="checkDimensions()">Submit</button>
+  <div id="message"></div>
+  <div id="hotTubContainer"></div>
+  <button id="resetButton" style="display:none;" onclick="resetSimulation()">Reset Simulation</button>
+
+  <script>
+    function checkDimensions() {
+      const length = parseInt(document.getElementById('length').value);
+      const width = parseInt(document.getElementById('width').value);
+      const message = document.getElementById('message');
+      const container = document.getElementById('hotTubContainer');
+      container.innerHTML = '';
+      container.style.display = 'none';
+
+      if (!length || !width) {
+        message.textContent = 'Please enter valid numbers for both dimensions.';
+        return;
+      }
+
+      if (length * width === 36) {
+        message.textContent = 'Success! The 36 tiles can create a hot tub!';
+        drawHotTub(length, width);
+      } else {
+        message.textContent = 'Invalid dimensions. Try again.';
+      }
+    }
+
+    function drawHotTub(length, width) {
+      const container = document.getElementById('hotTubContainer');
+      const scale = 20;
+      container.style.width = length * scale + 'px';
+      container.style.height = width * scale + 'px';
+      container.style.display = 'block';
+
+      const lengthLabel = document.createElement('div');
+      lengthLabel.textContent = `${length} tiles`;
+      lengthLabel.className = 'label';
+      lengthLabel.style.top = '-25px';
+      lengthLabel.style.left = (length * scale / 2 - 30) + 'px';
+      container.appendChild(lengthLabel);
+
+      const widthLabel = document.createElement('div');
+      widthLabel.textContent = `${width} tiles`;
+      widthLabel.className = 'label';
+      widthLabel.style.left = '-60px';
+      widthLabel.style.top = (width * scale / 2 - 10) + 'px';
+      container.appendChild(widthLabel);
+
+      document.getElementById('resetButton').style.display = 'inline-block';
+    }
+
+    function resetSimulation() {
+      document.getElementById('length').value = '';
+      document.getElementById('width').value = '';
+      document.getElementById('message').textContent = '';
+      document.getElementById('hotTubContainer').style.display = 'none';
+      document.getElementById('resetButton').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
